@@ -1,4 +1,4 @@
 Test file
 Test 2
 directly
-create pr 4
+create pr 4 local
