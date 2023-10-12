@@ -1,0 +1,27 @@
+name: Bump Version
+on:
+  pull_request_target:
+    types:
+      - closed
+    branches:
+      - 'master'
+
+jobs:
+  bump_version:
+    name: Bump version when merge pull request
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+          token: ${{ secrets.PAT_TOKEN }}
+      - name: bump version
+        run: |
+          echo "Test ${{ github.head_ref }}" >> test.txt
+          git config user.email "test@users.noreply.github.com"
+          git config user.name "test-bot"
+          git commit -m "[skip ci] Add content" test.txt
+      - name: push
+          git push --force-with-lease
