@@ -24,4 +24,5 @@ jobs:
           git config user.name "test-bot"
           git commit -m "[skip ci] Add content" test.txt
       - name: push
+        run: |
           git push --force-with-lease
